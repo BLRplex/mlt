@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "ecmaVersion": 8,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [ "react" ],
+  "rules": {
+    "jsx-a11y/click-events-have-key-events": "none"
+  }
+}
