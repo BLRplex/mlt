@@ -4,22 +4,18 @@ import pt from 'prop-types';
 
 import { withStyles, Typography } from '@material-ui/core';
 
-import Block from '../Block';
-import { SEARCH_PAGE } from '../../../constants';
+import Block from '@/components/blocks/Block';
+import { SEARCH_PAGE } from '@/constants';
 
-const styles = theme => ({
-  linksContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  link: {
-    marginRight: theme.spacing.unit,
-    textDecoration: 'none',
-    color: theme.palette.action.active,
-  },
-});
+import styles from './styles';
 
+/**
+ * Component that displays list of professions.
+ * @param {string[]} props.professions Array of professions.
+ * @param {boolean} props.wrapWithBlock Boolean flag that used for wrapping
+ * component with Material-UI Paper component.
+ * @param {object} props.classes Classes object.
+ */
 const ProfessionsList = ({ professions, wrapWithBlock, classes }) => {
   if (professions.length === 0) {
     return (null);
@@ -32,7 +28,7 @@ const ProfessionsList = ({ professions, wrapWithBlock, classes }) => {
         {professions.map(profession => (
           <Link
             className={classes.link}
-            key={`profession-${profession}`}
+            key={`profession-${profession.replace(/\s/, '')}`}
             to={SEARCH_PAGE.replace(':query', profession)}
           >
             {profession.trim()}

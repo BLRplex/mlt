@@ -4,15 +4,13 @@ import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-  pageContainer: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
-  },
-});
+import styles from './styles';
 
+/**
+ * Page component.
+ * @param {string} props.className custom class name for wrapping component.
+ * @param {object} props.classes Classes object.
+ */
 const Page = ({
   children,
   className,

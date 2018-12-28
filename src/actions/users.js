@@ -1,11 +1,12 @@
 /* global fetch */
 import { createAction } from 'redux-actions';
 
-import { setProfessionsListAction } from './professions';
-import { setHairColorsListAction } from './hairColors';
+import { setProfessionsListAction } from '@/actions/professions';
+import { setHairColorsListAction } from '@/actions/hairColors';
 
-import mapUsers from '../helpers/mapUsersArray';
-import { API_URL } from '../constants';
+import mapUsers from '@/helpers/mapUsersArray';
+import mockUsers from '@/mocks/users.json';
+import { API_URL } from '@/constants';
 
 export const REQUEST_USERS = '@/REQUEST_USERS';
 export const RESPONSE_USERS = '@/RESPONSE_USERS';
@@ -17,12 +18,27 @@ export const responseUsersAction = createAction(RESPONSE_USERS);
 export const responseUsersFailureAction = createAction(RESPONSE_USERS_FAILURE);
 export const filterUsersAction = createAction(FILTER_USERS);
 
+const isTestsEnvironment = process.env.NODE_ENV === 'test';
+
+/**
+ * Request wrapper with supporting mocks (usefull for making tests in offline mode).
+ */
+const usersRequest = () => {
+  if (isTestsEnvironment) {
+    return mockUsers;
+  }
+
+  return fetch(API_URL).then(fetchResponse => fetchResponse.json());
+};
+
+/**
+ * Thunk action for getting users from remote URL (supports tests).
+ */
 export const requestUsers = () => async (dispatch) => {
   dispatch(requestUsersAction());
 
   try {
-    const response = await fetch(API_URL)
-      .then(fetchResponse => fetchResponse.json());
+    const response = await usersRequest();
 
     if (!response || Object.keys(response).lenght === 0) {
       throw new Error('Unexpected error');
@@ -38,7 +54,7 @@ export const requestUsers = () => async (dispatch) => {
 
     dispatch(responseUsersAction(users));
   } catch (error) {
-    dispatch(responseUsersFailureAction(error));
+    dispatch(responseUsersFailureAction(error.message));
 
     throw error;
   }

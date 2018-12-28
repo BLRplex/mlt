@@ -1,5 +1,5 @@
-import { APPLY_FILTER } from '../actions/filters';
-import { ROWS_PER_PAGE_OPTIONS } from '../constants';
+import { APPLY_FILTER } from '@/actions/filters';
+import { ROWS_PER_PAGE_OPTIONS } from '@/constants';
 
 const initialState = {
   appliedFilters: {

@@ -10,5 +10,15 @@
   "plugins": [ "react" ],
   "rules": {
     "jsx-a11y/click-events-have-key-events": "none"
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "./src"]
+        ],
+        "extensions": [".js", ".jsx"]
+      }
+    }
   }
 }

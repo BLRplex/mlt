@@ -3,7 +3,7 @@ import {
   RESPONSE_USERS,
   RESPONSE_USERS_FAILURE,
   FILTER_USERS,
-} from '../actions/users';
+} from '@/actions/users';
 
 const initialState = {
   isLoading: false,

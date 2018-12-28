@@ -4,32 +4,14 @@ import { Link } from 'react-router-dom';
 
 import { Avatar, Typography, withStyles } from '@material-ui/core';
 
-import { UserPropType } from '../../../propTypes';
-import { USER_PAGE, MAX_ITEMS_IN_SHORT_LIST } from '../../../constants';
+import { UserPropType } from '@/propTypes';
+import { USER_PAGE, MAX_ITEMS_IN_SHORT_LIST } from '@/constants';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  avatar: {
-    margin: theme.spacing.unit / 2,
-    marginBottom: 0,
-    width: 60,
-    height: 60,
-  },
-  avatarWrapper: {
-    width: 64,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textDecoration: 'none',
-    cursor: 'pointer',
-  },
-});
+import styles from './styles';
 
+/**
+ * Component that displays chain of avatars. Supports lazy loading.
+ */
 class AvatarsQueue extends React.Component {
   constructor(props) {
     super(props);
@@ -41,6 +23,9 @@ class AvatarsQueue extends React.Component {
     this.handleLoadMore = this.handleLoadMore.bind(this);
   }
 
+  /**
+   * Initial limitation for implementing lazy loading feature.
+   */
   limitUsers() {
     const { limit } = this.state;
     const { users } = this.props;
@@ -48,12 +33,18 @@ class AvatarsQueue extends React.Component {
     return users.slice(0, limit);
   }
 
+  /**
+   * Triggers when user clicks "Load more" button.
+   */
   handleLoadMore() {
     this.setState(prevState => ({
       limit: prevState.limit + MAX_ITEMS_IN_SHORT_LIST,
     }));
   }
 
+  /**
+   * Renders "Loader" button.
+   */
   renderLoader() {
     const { limit } = this.state;
     const { users, classes } = this.props;
@@ -67,7 +58,13 @@ class AvatarsQueue extends React.Component {
           onClick={this.handleLoadMore}
         >
           <Avatar className={classes.avatar}>...</Avatar>
-          <Typography paragraph={false} variant="caption">Show more</Typography>
+          <Typography
+            paragraph={false}
+            variant="caption"
+            data-testid="show-more"
+          >
+            Show more
+          </Typography>
         </span>
       );
     }
@@ -75,6 +72,9 @@ class AvatarsQueue extends React.Component {
     return (null);
   }
 
+  /**
+   * Component render method
+   */
   render() {
     const { users, classes } = this.props;
 

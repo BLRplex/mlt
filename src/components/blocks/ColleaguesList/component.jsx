@@ -3,13 +3,20 @@ import pt from 'prop-types';
 
 import { Typography } from '@material-ui/core';
 
-import AvatarsQueue from '../AvatarsQueue';
-import Block from '../Block';
-import { UserPropType } from '../../../propTypes';
-import { extractColleagues } from '../../../helpers/users';
-import { MAX_ITEMS_IN_SHORT_LIST } from '../../../constants';
+import AvatarsQueue from '@/components/blocks/AvatarsQueue';
+import Block from '@/components/blocks/Block';
+import { UserPropType } from '@/propTypes';
+import { extractColleagues } from '@/helpers/users';
+import { MAX_ITEMS_IN_SHORT_LIST } from '@/constants';
 
-
+/**
+ * Component that displays list of colleagues.
+ * @param {object} props.users Redux-store pointer to users.
+ * @param {string[]} props.professions Array of professions.
+ * Used for extracting users with similar professions.
+ * @param {boolean} props.wrapWithBlock Boolean flag that used for wrapping
+ * component with Material-UI Paper component.
+ */
 const ColleaguesList = ({ users, professions, wrapWithBlock }) => {
   const colleagues = extractColleagues(users.data, professions);
 

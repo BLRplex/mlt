@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom';
 import { Button, InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core/styles';
-import { SEARCH_PAGE } from '../../../constants';
+
+import { SEARCH_PAGE } from '@/constants';
 
 const styles = theme => ({
   inputWrapper: {

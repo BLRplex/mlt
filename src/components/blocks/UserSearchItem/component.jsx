@@ -8,19 +8,16 @@ import {
   withStyles,
   Avatar,
 } from '@material-ui/core';
-import { UserPropType } from '../../../propTypes';
-import { USER_PAGE, SEARCH_PAGE } from '../../../constants';
+import { UserPropType } from '@/propTypes';
+import { USER_PAGE, SEARCH_PAGE } from '@/constants';
 
-const styles = () => ({
-  link: {
-    textDecoration: 'none',
-    color: 'inherit',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-});
+import styles from './styles';
 
+/**
+ * Displays single item of search results.
+ * @param {object} props.user User object.
+ * @param {object} props.classes Classes object.
+ */
 const UserSearchItem = ({ user, classes }) => (
   <ListItem>
     <Link to={USER_PAGE.replace(':userId', user.id)}>
@@ -38,7 +35,7 @@ const UserSearchItem = ({ user, classes }) => (
       )}
       secondary={user.professions.map((profession, index) => (
         <Link
-          key={`profession-${profession}`}
+          key={`profession-${profession.replace(/\s/, '')}`}
           className={classes.link}
           to={SEARCH_PAGE.replace(':query', profession)}
         >

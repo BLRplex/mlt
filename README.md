@@ -1,44 +1,21 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Overview
+The application based on `create-react-app` kit. It includes tests with coverage, offline mode (chrome only), caching strict ESLint configuration and pre-commit hook. UI built with Material (responsive design is supported).
 
-## Available Scripts
+# Installation
+Please install [NodeJS v8](https://nodejs.org/dist/latest-v8.x/) and run `npm run install` for installing all dependencies. Alternatively you can use `yarn` (`yarn install`).
 
-In the project directory, you can run:
+# Running
+Please run `npm start` (`yarn start`). Application will available by address `http://localhost:3000/`.
 
-### `npm start`
+# Build
+Please run `npm run build` (`yarn build`) for preparing artefact. The artefact could be deployed to any server.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Tests
+Please run `npm run test` (`yarn test`) for running tests. For enabling coverage please add additional argument `--coverage`: `npm run test --coverage` (`yarn test --coverage`). It will generate HTML documents in `coverage/lcov-report/src`.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Progressive Web Application
+The application supports offline mode and caching resources. For enabling please open sources (`src/index.jsx`) and comment next lines:
+`10: const isDevEnvironment = process.env.NODE_ENV === 'development';`
+`24: if (!isDevEnvironment) {`
+`26: }`
+The production build already includes PWA.

@@ -7,10 +7,10 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
-import { requestUsers } from '../../actions/users';
-import store from '../../store';
-import Router from '../../router';
-import themeObject from '../../theme';
+import { requestUsers } from '@/actions/users';
+import store from '@/store';
+import Router from '@/router';
+import themeObject from '@/theme';
 
 const theme = createMuiTheme(themeObject);
 
@@ -20,7 +20,7 @@ class App extends Component {
     // it make sense to move the request to parent element
     store
       .dispatch(requestUsers())
-      .catch(error => toastr.error(error.message));
+      .catch(error => toastr.error(error.message, 'Service is unavailable'));
   }
 
   render() {

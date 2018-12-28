@@ -1,4 +1,4 @@
-import { SET_PROFESSIONS_LIST, RESET_PROFESSIONS_LIST } from '../actions/professions';
+import { SET_PROFESSIONS_LIST, RESET_PROFESSIONS_LIST } from '@/actions/professions';
 
 const initialState = {
   list: [],

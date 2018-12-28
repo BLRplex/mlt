@@ -1,10 +1,9 @@
 import React from 'react';
 import pt from 'prop-types';
-import Loader from 'react-loader';
 
-import { withStyles } from '@material-ui/core';
+import { withStyles, LinearProgress } from '@material-ui/core';
 
-import Header from '../../blocks/Header';
+import Header from '@/components/blocks/Header';
 
 const styles = theme => ({
   '@global': {
@@ -19,7 +18,9 @@ const BasicLayout = ({ children, isLoading }) => (
     <Header />
     <nav className="filters" />
     <section className="container">
-      <Loader loaded={!isLoading} />
+      {isLoading && (
+        <LinearProgress color="primary" />
+      )}
       {children}
     </section>
   </React.Fragment>

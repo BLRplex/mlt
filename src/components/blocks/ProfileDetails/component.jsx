@@ -3,19 +3,16 @@ import pt from 'prop-types';
 
 import { withStyles } from '@material-ui/core';
 
-import { extractProfileDetails } from '../../../helpers/users';
-import { UserPropType } from '../../../propTypes';
+import { extractProfileDetails } from '@/helpers/users';
+import { UserPropType } from '@/propTypes';
 
-const styles = () => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  strong: {
-    fontWeight: 500,
-  },
-});
+import styles from './styles';
 
+/**
+ * Component that displays extra information of user profile.
+ * @param {object} props.user User object.
+ * @param {object} props.classes Classes object.
+ */
 const ProfileDetails = ({ user, classes }) => (
   <div className={classes.root}>
     {extractProfileDetails(user).map(field => (

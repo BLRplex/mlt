@@ -3,20 +3,15 @@ import pt from 'prop-types';
 
 import { withStyles, List, Button } from '@material-ui/core';
 
-import UserSearchItem from '../UserSearchItem';
-import { UserPropType } from '../../../propTypes';
-import { MAX_ITEMS_IN_SHORT_LIST } from '../../../constants';
+import UserSearchItem from '@/components/blocks/UserSearchItem';
+import { UserPropType } from '@/propTypes';
+import { MAX_ITEMS_IN_SHORT_LIST } from '@/constants';
 
-const styles = () => ({
-  list: {
-    width: '100%',
-  },
-  buttonContainer: {
-    width: '100%',
-    textAlign: 'center',
-  },
-});
+import styles from './styles';
 
+/**
+ * Component that displays search results.
+ */
 class UserSearchResults extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +23,9 @@ class UserSearchResults extends React.Component {
     this.handleLoadMore = this.handleLoadMore.bind(this);
   }
 
+  /**
+   * Initial limitation for implementing lazy loading feature.
+   */
   limitUsers() {
     const { limit } = this.state;
     const { users } = this.props;
@@ -35,12 +33,18 @@ class UserSearchResults extends React.Component {
     return users.slice(0, limit);
   }
 
+  /**
+   * Triggers when user clicks "Load more" button.
+   */
   handleLoadMore() {
     this.setState(prevState => ({
       limit: prevState.limit + MAX_ITEMS_IN_SHORT_LIST,
     }));
   }
 
+  /**
+   * Renders "Loader" button.
+   */
   renderLoader() {
     const { limit } = this.state;
     const { users, classes } = this.props;
@@ -48,7 +52,13 @@ class UserSearchResults extends React.Component {
     if (users.length > limit) {
       return (
         <div className={classes.buttonContainer}>
-          <Button variant="outlined" onClick={this.handleLoadMore}>Show more...</Button>
+          <Button
+            variant="outlined"
+            data-testid="show-more"
+            onClick={this.handleLoadMore}
+          >
+            Show more...
+          </Button>
         </div>
       );
     }
@@ -56,6 +66,9 @@ class UserSearchResults extends React.Component {
     return (null);
   }
 
+  /**
+   * Component render method
+   */
   render() {
     const { users, classes } = this.props;
 
@@ -65,7 +78,9 @@ class UserSearchResults extends React.Component {
 
     return (
       <List className={classes.list}>
-        {this.limitUsers().map(user => <UserSearchItem user={user} key={`user-search-result-${user.name}`} />)}
+        {this.limitUsers().map(user => (
+          <UserSearchItem user={user} key={`user-search-result-${user.name}-${user.id}`} />
+        ))}
         {this.renderLoader()}
       </List>
     );

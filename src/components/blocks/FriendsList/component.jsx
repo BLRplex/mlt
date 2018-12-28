@@ -3,12 +3,19 @@ import pt from 'prop-types';
 
 import { Typography } from '@material-ui/core';
 
-import Block from '../Block';
-import AvatarsQueue from '../AvatarsQueue';
-import { UserPropType } from '../../../propTypes';
-import { extractUsersByNames } from '../../../helpers/users';
-import { MAX_ITEMS_IN_SHORT_LIST } from '../../../constants';
+import Block from '@/components/blocks/Block';
+import AvatarsQueue from '@/components/blocks/AvatarsQueue';
+import { UserPropType } from '@/propTypes';
+import { extractUsersByNames } from '@/helpers/users';
+import { MAX_ITEMS_IN_SHORT_LIST } from '@/constants';
 
+/**
+ * Component that displays list of friends.
+ * @param {object} props.users Redux-store pointer to users.
+ * @param {object} props.currentUser Current User object.
+ * @param {boolean} props.wrapWithBlock Boolean flag that used for wrapping
+ * component with Material-UI Paper component.
+ */
 const FriendsList = ({ users, currentUser, wrapWithBlock }) => {
   const friends = extractUsersByNames(users.data, currentUser.friends || []);
 

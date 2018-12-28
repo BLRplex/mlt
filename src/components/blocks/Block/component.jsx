@@ -2,16 +2,11 @@ import React from 'react';
 import pt from 'prop-types';
 import { withStyles, Paper } from '@material-ui/core';
 
-const styles = theme => ({
-  block: {
-    padding: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    '&:last-child': {
-      marginBottom: 0,
-    },
-  },
-});
+import styles from './styles';
 
+/**
+ * Wrapper for Material-UI Paper component. Used for styles standartization.
+ */
 const Block = ({ children, classes }) => (
   <Paper className={classes.block}>{children}</Paper>
 );

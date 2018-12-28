@@ -1,19 +1,24 @@
 import React from 'react';
 import pt from 'prop-types';
+import { toastr } from 'react-redux-toastr';
 import {
   withStyles,
   Avatar,
   Typography,
   Button,
+  LinearProgress,
 } from '@material-ui/core';
 
-import BasicLayout from '../../components/layout/BasicLayout';
-import Page from '../../components/blocks/Page';
-import FriendsList from '../../components/blocks/FriendsList';
-import ProfileDetails from '../../components/blocks/ProfileDetails';
-import ProfessionsList from '../../components/blocks/ProfessionsList';
-import ColleaguesList from '../../components/blocks/ColleaguesList';
-import { UserPropType } from '../../propTypes';
+import BasicLayout from '@/components/layout/BasicLayout';
+import Page from '@/components/blocks/Page';
+import FriendsList from '@/components/blocks/FriendsList';
+import ProfileDetails from '@/components/blocks/ProfileDetails';
+import ProfessionsList from '@/components/blocks/ProfessionsList';
+import ColleaguesList from '@/components/blocks/ColleaguesList';
+import NetworkError from '@/components/blocks/NetworkError';
+import { UserPropType } from '@/propTypes';
+
+import { NOT_FOUND_PAGE } from '@/constants';
 
 const styles = theme => ({
   page: {
@@ -51,10 +56,22 @@ const styles = theme => ({
 });
 
 class UserPage extends React.Component {
+  static handleShowNotification() {
+    toastr.info('Sorry', 'This feature is not implemented yet...');
+  }
+
   constructor(props) {
     super(props);
 
     this.extractUserData = this.extractUserData.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleRedirect();
+  }
+
+  componentDidUpdate() {
+    this.handleRedirect();
   }
 
   extractUserData() {
@@ -67,10 +84,27 @@ class UserPage extends React.Component {
     return users.data.find(user => user.id === parseInt(userId, 10));
   }
 
+  handleRedirect() {
+    const { history, users } = this.props;
+    const currentUser = this.extractUserData();
+
+    if (!currentUser && users.isLoaded) {
+      history.push(NOT_FOUND_PAGE);
+    }
+  }
+
   render() {
     const { users, classes } = this.props;
-
     const currentUser = this.extractUserData();
+
+    // Case when users are loading
+    if (users.isLoading) {
+      return (<LinearProgress color="primary" />);
+    }
+
+    if (users.error) {
+      return (<NetworkError />);
+    }
 
     if (!currentUser) {
       return (null);
@@ -86,8 +120,20 @@ class UserPage extends React.Component {
               className={classes.avatar}
             />
             <div className={classes.buttons}>
-              <Button variant="contained" color="primary">Edit</Button>
-              <Button variant="contained" color="secondary">Settings</Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={UserPage.handleShowNotification}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={UserPage.handleShowNotification}
+              >
+                Settings
+              </Button>
             </div>
           </section>
           <section className="profile-section">
@@ -118,8 +164,11 @@ UserPage.propTypes = {
   }).isRequired,
   match: pt.shape({
     params: pt.shape({
-      query: pt.string,
+      userId: pt.string,
     }).isRequired,
+  }).isRequired,
+  history: pt.shape({
+    push: pt.func.isRequired,
   }).isRequired,
 };
 

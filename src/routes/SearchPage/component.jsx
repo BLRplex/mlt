@@ -2,11 +2,12 @@ import React from 'react';
 import pt from 'prop-types';
 import { withStyles } from '@material-ui/core';
 
-import BasicLayout from '../../components/layout/BasicLayout';
-import Page from '../../components/blocks/Page';
-import UserSearchResults from '../../components/blocks/UserSearchResults';
-import { findUsersByNameOrProfession } from '../../helpers/users';
-import { UserPropType } from '../../propTypes';
+import BasicLayout from '@/components/layout/BasicLayout';
+import Page from '@/components/blocks/Page';
+import UserSearchResults from '@/components/blocks/UserSearchResults';
+import { findUsersByNameOrProfession } from '@/helpers/users';
+import { UserPropType } from '@/propTypes';
+import NetworkError from '../../components/blocks/NetworkError';
 
 const styles = theme => ({
   page: {
@@ -29,7 +30,11 @@ class UserPage extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { users: { error }, classes } = this.props;
+
+    if (error) {
+      return (<NetworkError />);
+    }
 
     return (
       <BasicLayout>

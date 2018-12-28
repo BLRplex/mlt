@@ -1,4 +1,4 @@
-import { SET_HAIR_COLORS_LIST, RESET_HAIR_COLORS_LIST } from '../actions/hairColors';
+import { SET_HAIR_COLORS_LIST, RESET_HAIR_COLORS_LIST } from '@/actions/hairColors';
 
 const initialState = {
   list: [],
